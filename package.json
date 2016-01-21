@@ -1,0 +1,19 @@
+{
+  "name": "myweb",
+  "version": "1.0.0",
+  "description": "build personal website",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lssslhs/myweb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lssslhs/myweb/issues"
+  },
+  "homepage": "https://github.com/lssslhs/myweb#readme"
+}
