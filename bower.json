@@ -1,0 +1,29 @@
+{
+  "name": "my-website",
+  "description": "personal website",
+  "main": "",
+  "authors": [
+    "Michael <lssslhs@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/lssslhs/myweb",
+  "moduleType": [],
+  "private": true,
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-mocks": "1.4.x",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.1.1",
+    "angular-route": "1.4.x",
+    "angular-resource": "1.4.x",
+    "angular-animate": "1.4.x"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}
