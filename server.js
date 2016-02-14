@@ -4,19 +4,20 @@
   /**********************************************************
   *                      Load Modules                      *
   **********************************************************/
-  var express  = require("express")
-  ,   path     = require("path")
-  ,   fs       = require("fs")
-  ,   session  = require("express-session")
-  ,   passport = require("passport");
 
-  var favicon      = require("serve-favicon")
-  ,   logger       = require("morgan")
+  var express = require("express")
+  ,   path = require("path")
+  ,   fs = require("fs");
+
+  var favicon = require("serve-favicon")
+  ,   logger = require("morgan")
   ,   cookieParser = require("cookie-parser")
-  ,   bodyParser   = require("body-parser");
+  ,   bodyParser = require("body-parser")
+  ,   passport = require("passport")
+  ,   dbConfig = require("./config/database")
+  ,   jwt = require("jwt-simple");
 
-  var app        = express()
-  ,   MongoStore = require("connect-mongo")(session);
+  var app = express();
 
   // set server root for future use
   global.serverRoot = path.resolve(__dirname);
@@ -25,7 +26,7 @@
   * Connect MongoDB, Bootstrap models and Config passport  *
   **********************************************************/
 
-  var db_url = process.env.MONGODB_DB_URL || "mongodb://127.0.0.1:27017/lucifer";
+  var db_url = process.env.MONGODB_DB_URL || dbConfig.database;
   require("mongoose").connect(db_url, function (err) {
     if (err) {
       console.log(err, err.stack);
@@ -34,38 +35,36 @@
     }
   });
 
-  var modelsPath = path.join(__dirname, "lib/models");
+  var modelsPath = path.join(__dirname, "app/models");
   fs.readdirSync(modelsPath).forEach(function(file) {
     require(modelsPath + "/" + file);
   });
-
-  var passportConfig = require("./lib/config/passport");
 
 
   /**********************************************************
   *                     Configuration                      *
   **********************************************************/
+
+  //set views folder and template engine
   app.set("views", path.join(__dirname, "app/views"));
   app.engine("html", require("ejs").renderFile);
   app.set("view engine", "html");
 
+  //set favicon
   app.use(favicon(__dirname + "/app/favicon.ico"));
+
+  //log to console
   app.use(logger("dev"));
+
+  //parse cookie
   app.use(cookieParser());
+
+  //get request params
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(session({
-    secret: "Levi Lu",
-    resave: true,
-    saveUninitialized: true,
-    store: new MongoStore({
-      db : "levi",
-      collection: "sessions"
-    })
-  }));
 
+  //use passport
   app.use(passport.initialize());
-  app.use(passport.session());
 
 
   app.use(express.static(path.join(__dirname, "app")));
@@ -73,10 +72,6 @@
   /**********************************************************
   *                         Routes                         *
   **********************************************************/
-  // app.use(function(req, res, next) {
-  //     res.setHeader('Last-Modified', (new Date()).toUTCString());
-  //     next();
-  // });
 
   var routes = require("./routes/index");
   app.use("/", routes);
