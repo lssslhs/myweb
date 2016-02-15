@@ -14,8 +14,7 @@
   ,   cookieParser = require("cookie-parser")
   ,   bodyParser = require("body-parser")
   ,   passport = require("passport")
-  ,   dbConfig = require("./config/database")
-  ,   jwt = require("jwt-simple");
+  ,   dbConfig = require("./config/database");
 
   var app = express();
 
@@ -35,10 +34,14 @@
     }
   });
 
+  //get all models
   var modelsPath = path.join(__dirname, "app/models");
   fs.readdirSync(modelsPath).forEach(function(file) {
     require(modelsPath + "/" + file);
   });
+
+  // pass passport for configuration
+  require('./config/passport')(passport);
 
 
   /**********************************************************

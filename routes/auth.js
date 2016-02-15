@@ -8,7 +8,12 @@
   var user = require("./api/user");
 
   router.post("/singup", user.create);
-  //router.get("/user/:userId", user.get);
+
+  router.post('/auth', user.auth);
+
+  //router.get('/info', user.getInfo);
+
+  router.get('/info', passport.authenticate("jwt", {session: false}), user.getInfo);
 
   module.exports = router;
 

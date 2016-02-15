@@ -54,7 +54,7 @@
             console.log("====== "+err);
             return next(err);
           }
-          user.password = hash;
+          user.local.password = hash;
           next();
         });
       });
@@ -62,7 +62,9 @@
   });
 
   UserSchema.methods.comparePassword = function(password, cb) {
-    bcrypt.compare(password, this.password, function(err, isMatch) {
+    console.log(this.local.password);
+    console.log(password);
+    bcrypt.compare(password, this.local.password, function(err, isMatch) {
       if(err) {
         return cb(err);
       }
@@ -70,6 +72,6 @@
     })
   };
 
-  module.exports = mongoose.model('User', UserSchema);
+  mongoose.model('User', UserSchema);
 
 }();
