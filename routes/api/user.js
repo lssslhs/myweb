@@ -23,8 +23,6 @@
           "local.username": req.body.username
         });
 
-        console.log(newUser);
-        //save the user
         newUser.save(function(err){
           if (err) {
             return res.json({
@@ -32,8 +30,13 @@
               msg: err
             });
           }
-
-          res.json({success: true, msg: 'Successful created new user.'});
+          //generate token
+          var token = jwt.encode(newUser, authConfig.localAuth.secret);
+          res.json({
+            success: true,
+            msg: "Successful created new user.",
+            user: newUser.infoLocal,
+            token: "JWT " + token});
         });
       }
     },
@@ -62,9 +65,9 @@
             }
             else {
               var token = jwt.encode(user, authConfig.localAuth.secret);
-              console.log("----jwt----"+token);
               res.json({
                 success: true,
+                user: user.infoLocal,
                 token: "JWT " + token
               });
             }
@@ -93,7 +96,8 @@
           else {
             return res.json({
               success: true,
-              msg: "Welcome "+user.local.username
+              msg: "Welcome " + user.local.username,
+              user: user.infoLocal
             })
           }
         });

@@ -1,0 +1,8 @@
+#mainContainer {
+  padding: 40px 20px;
+}
+
+.mode-switch {
+  color: #337ab7;
+  cursor: pointer;
+}

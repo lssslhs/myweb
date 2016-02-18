@@ -17,7 +17,7 @@
 
   router.use("/auth", auth);
 
-  router.use('/test', test);
+  router.use("/test", test);
 
   module.exports = router;
 

@@ -27,6 +27,7 @@
   .get(function(){
     return {
       "_id": this._id,
+      "email": this.local.email,
       "username": this.local.username,
       "isAdmin": this.isAdmin
     };

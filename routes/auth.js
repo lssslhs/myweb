@@ -7,7 +7,7 @@
 
   var user = require("./api/user");
 
-  router.post("/singup", user.create);
+  router.post("/signup", user.create);
 
   router.post('/auth', user.auth);
 
