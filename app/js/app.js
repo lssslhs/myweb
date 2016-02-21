@@ -8,10 +8,6 @@
     "michaelServices"
   ]);
 
-  michaelApp.config(["$httpProvider", function($httpProvider){
-    $httpProvider.interceptors.push('AuthInterceptor');
-  }]);
-
   michaelApp.config([
     "$routeProvider", "$locationProvider",
     function($routeProvider, $locationProvider){
@@ -24,38 +20,28 @@
       when('/profile',{
         templateUrl: 'views/partials/profile.html',
         controller: 'ProfileCtrl',
-        needAuth: true
+        resolve: {
+          authorize: ["$location", "AuthService",
+           function($location, AuthService){
+             if (!AuthService.isAuthenticated()) {
+               $location.path("/");
+             }
+           }]
+        }
       }).
       otherwise({
         redirectTo: '/'
       });
     }]);
 
-    michaelApp.run(["$rootScope", "$location", "AuthService", function ($rootScope, $location, AuthService) {
+    michaelApp.run(["$rootScope", "$location", function ($rootScope, $location) {
+
+      console.log("app run");
 
       $rootScope.user = {
-        email: "",
-        username: "",
-        isAuthenticated: false,
-        isAdmin: false
+        isAuthenticated: false
       };
 
-      if (AuthService.isAuthenticated()) {
-        AuthService.getUserInfo()
-        .then(function(user){
-          storeUserInfo($rootScope, user);
-          console.log($rootScope.user);
-        },function(err){
-          console.log(err);
-        });
-      }
-
-      $rootScope.$on('$routeChangeStart', function (event, to, ee) {
-        console.log("route change start");
-        if(to.needAuth && !$rootScope.user.isAuthenticated) {
-          $location.url("/");
-        }
-      });
     }]);
 
   }();

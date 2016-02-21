@@ -19,6 +19,15 @@
         ]
       };
 
+      if (AuthService.isAuthenticated()) {
+        AuthService.getUserInfo()
+        .then(function(user){
+          storeUserInfo($rootScope, user);
+        },function(err){
+          console.log(err);
+        });
+      }
+
       $scope.logout = function() {
         AuthService.logout();
         clearUserInfo($rootScope);
@@ -85,21 +94,43 @@
     }]);
 
     michaelControllers.controller("ProfileCtrl", [
-      "$rootScope", "$scope", "$location",
-      function($rootScope, $scope, $location) {
-        console.log("profile ctrl");
+      "$rootScope", "$scope", "Profile",
+      function($rootScope, $scope, Profile) {
+
+        $scope.profile = {
+          fullname: "",
+          phone: "",
+          gender: "male",
+          email: "",
+          address: "",
+          foodtype: "chinese",
+        };
+
+        Profile.get(function(res){
+          $scope.getprofile = res.success;
+          if (res.success) {
+            $scope.profile = res.profile;
+          }
+        });
+
+        $scope.submit = function() {
+          if(!$scope.getprofile) {
+            Profile.create($scope.profile);
+          }
+          else {
+            Profile.update($scope.profile);
+          }
+        }
       }
     ]);
 
     var storeUserInfo = function($rootScope, user) {
-      $rootScope.user.email = user.email;
-      $rootScope.user.username = user.username;
+      $rootScope.user = user;
       $rootScope.user.isAuthenticated = true;
     };
 
     var clearUserInfo = function($rootScope) {
-      $rootScope.user.email = "";
-      $rootScope.user.username = "";
+      $rootScope.user = {};
       $rootScope.user.isAuthenticated = false;
     }
 

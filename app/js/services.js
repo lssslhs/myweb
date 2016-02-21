@@ -55,7 +55,7 @@
 
       var login = function(user) {
         return $q(function(resolve, reject) {
-          $http.post(API_ENDPOINT.url + "/auth/auth", user)
+          $http.post(API_ENDPOINT.url + "/auth/login", user)
           .then(function(result){
             if(result.data.success) {
               storeUserCredentials(result.data.token);
@@ -76,7 +76,7 @@
         return $q(function(resolve, reject){
           $http.get(API_ENDPOINT.url + "/auth/info")
           .then(function(result){
-            if(result.data.success) {
+            if (result.data.success) {
               resolve(result.data.user);
             }
             else {
@@ -100,16 +100,12 @@
 
     }]);
 
-
-    michaelServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
-      return {
-        responseError: function (response) {
-          $rootScope.$broadcast({
-            401: AUTH_EVENTS.notAuthenticated,
-          }[response.status], response);
-          return $q.reject(response);
-        }
-      };
-    });
+    michaelServices.factory("Profile",["$resource",
+    function($resource){
+      return $resource("/auth/profile", {} , {
+        update: {method: "PUT"},
+        create: {method: "POST"}
+      });
+    }]);
 
   }()

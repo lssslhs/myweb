@@ -9,11 +9,17 @@
 
   router.post("/signup", user.create);
 
-  router.post('/auth', user.auth);
+  router.post("/login", user.login);
 
-  //router.get('/info', user.getInfo);
+  router.get("/info", passport.authenticate("jwt", {session:false}), user.info);
 
-  router.get('/info', passport.authenticate("jwt", {session: false}), user.getInfo);
+  router.use("/profile", passport.authenticate("jwt", {session:false}));
+
+  router.get("/profile", user.getProfile);
+
+  router.post("/profile", user.createProfile);
+
+  router.put("/profile", user.updateProfile);
 
   module.exports = router;
 

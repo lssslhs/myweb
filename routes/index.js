@@ -5,7 +5,6 @@
 
   var api = require("./api")
   ,   auth = require("./auth")
-  ,   test = require("./test")
   ,   router = express.Router();
 
   //get home page
@@ -16,8 +15,6 @@
   router.use("/api", api);
 
   router.use("/auth", auth);
-
-  router.use("/test", test);
 
   module.exports = router;
 

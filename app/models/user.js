@@ -7,7 +7,7 @@
 
   var UserSchema = new Schema({
     local: {
-      email: {
+      username: {
         type: String,
         unique: true,
         required: true
@@ -15,28 +15,23 @@
       password: {
         type: String,
         required: true
-      },
-      username: String
+      }
     },
 
-    isAdmin: Boolean
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
   });
 
   UserSchema
   .virtual("infoLocal")
   .get(function(){
     return {
-      "_id": this._id,
-      "email": this.local.email,
       "username": this.local.username,
       "isAdmin": this.isAdmin
     };
   });
-
-  UserSchema.path("local.email").validate(function(email){
-    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    return emailRegex.test(email);
-  }, "The email is invalid");
 
   UserSchema.pre("save", function(next){
     var user = this;
@@ -44,15 +39,11 @@
     //need to be encode
     if (this.isModified("password") || this.isNew) {
       bcrypt.genSalt(10, function(err, salt){
-        console.log("-------- salt: "+salt);
         if (err) {
-          //console.log("====== "+err);
           return next(err);
         }
-        console.log("------user----- "+user);
         bcrypt.hash(user.local.password, salt, function(err, hash){
           if (err) {
-            console.log("====== "+err);
             return next(err);
           }
           user.local.password = hash;
