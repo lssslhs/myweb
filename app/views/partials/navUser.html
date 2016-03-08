@@ -1,0 +1,17 @@
+<form class="navbar-form navbar-right" role="user_status">
+  <button type="button" class="btn btn-primary navbar-right" ng-click="openModal()" ng-show="!user.isAuthenticated">Sign up</button>
+  <div class="btn-group" uib-dropdown is-open="userDropdown.isopen" ng-show="user.isAuthenticated">
+    <button id="userDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+      Hi, {{user.username}} <span class="caret"></span>
+    </button>
+    <ul class="user-dropdown-list" uib-dropdown-menu role="menu" aria-labelledby="userDropdown">
+      <li ng-repeat="choice in userDropdown.items">
+        <a href="/{{choice}}">{{choice}}</a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a href="" ng-click="logout()">Log out</a>
+      </li>
+    </ul>
+  </div>
+</form>

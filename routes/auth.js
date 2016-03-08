@@ -5,7 +5,8 @@
   ,   passport = require("passport")
   ,   router = express.Router();
 
-  var user = require("./api/user");
+  var user = require("./api/user")
+  ,   joblist = require("./api/joblist");
 
   router.post("/signup", user.create);
 
@@ -13,13 +14,16 @@
 
   router.get("/info", passport.authenticate("jwt", {session:false}), user.info);
 
-  router.use("/profile", passport.authenticate("jwt", {session:false}));
+  router.route("/profile", passport.authenticate("jwt", {session:false}))
+          .get(user.getProfile)
+          .post(user.createProfile)
+          .put(user.updateProfile);
 
-  router.get("/profile", user.getProfile);
-
-  router.post("/profile", user.createProfile);
-
-  router.put("/profile", user.updateProfile);
+ router.route("/joblist", passport.authenticate("jwt", {session:false}))
+          .get(joblist.getJoblist)
+          .post(joblist.create)
+          .put(joblist.updateJob)
+          .delete(joblist.deleteJob);
 
   module.exports = router;
 

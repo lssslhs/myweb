@@ -5,19 +5,29 @@
   <title>Michael Website</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-route/angular-route.min.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/constants.js"></script>
+  <link rel="stylesheet" href="css/movie.css">
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-route/angular-route.min.js"></script>
+  <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/controller/controllers.js"></script>
+  <script src="/js/service/filters.js"></script>
+  <script src="/js/service/services.js"></script>
+  <script src="/js/directive/directives.js"></script>
+  <script src="/js/constants.js"></script>
+  <script type="text/javascript" src="/js/controller/movie/movie.controllers.js"></script>
+  <script type="text/javascript" src="/js/service/movie/movie.core.services.js"></script>
+  <script type="text/javascript" src="/js/service/omdb/omdb.services.js"></script>
+  <script type="text/javascript" src="/js/movie.js"></script>
+  <script type="text/javascript" src="/js/directive/movie/movie.directives.js"></script>
+  <script type="text/javascript" src="/js/service/movie/movie.filter.js"></script>
+  <script type="text/javascript" src="/js/controller/job/job.controllers.js"></script>
+  <script type="text/javascript" src="/js/service/job/job.services.js"></script>
 </head>
-<body ng-app="michaelApp">
+<body ng-app="myWebApp">
   <nav class="navbar navbar-fixed-top navbar-inverse" ng-controller="NavCtrl">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -25,30 +35,23 @@
         </button>
         <a class="navbar-brand" href="/">Michael</a>
       </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
       <div id="navBar" class="collapse navbar-collapse">
-        <form class="navbar-form navbar-right" role="signup">
-          <button type="button" class="btn btn-primary navbar-right" ng-click="openModal()" ng-show="!user.isAuthenticated">Sign up</button>
-          <div class="btn-group" uib-dropdown is-open="userDropdown.isopen" ng-show="user.isAuthenticated">
-            <button id="userDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-              Hi, {{user.username}} <span class="caret"></span>
-            </button>
-            <ul class="user-dropdown-list" uib-dropdown-menu role="menu" aria-labelledby="userDropdown">
-              <li ng-repeat="choice in userDropdown.items">
-                <a href="/{{choice}}">{{choice}}</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="" ng-click="logout()">Log out</a>
-              </li>
-            </ul>
-          </div>
-        </form>
+        <ul class="nav navbar-nav">
+          <li>
+             <a href="/movie">Movie</a>
+          </li>
+          <li>
+            <a href="/job">Jobs</a>
+          </li>
+        </ul>
+        <div ng-controller="NavUserCtrl">
+          <nav-user></nav-user>
+        </div>
       </div>
     </div>
   </nav>
   <div id="mainContainer" class="container">
     <div ng-view><div>
-  </div>
-</body>
-</html>
+    </div>
+  </body>
+  </html>

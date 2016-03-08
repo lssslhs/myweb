@@ -1,0 +1,27 @@
+
+<div ng-controller="MoviePopularCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div style="height: 300px">
+				<uib-carousel active="slideIndex" interval="slideInterval" no-wrap="noWrapSlides">
+				<uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+				<div class="carosel-container">
+					<img class="carousel-img" ng-src="{{slide.Poster}}" style="margin:auto;">
+					<div class="carousel-text-container">
+						<h1 class="carousel-Title">Slide {{slide.Title}}</h1>
+						<div class="text-bottom">
+							<p class="carousel-text"><span class="text-span">Plot:</span> {{slide.Plot}}</p>
+							<p class="carousel-text"><span class="text-span">Director:</span> {{slide.Director}}</p>
+							<p class="carousel-text"><span class="text-span">Actors:</span> {{slide.Actors}}</p>
+							<p class="carousel-text"><span class="text-span">Release:</span> {{slide.Released}}</p>
+							<p class="carousel-text"><span class="text-span">Genre:</span> {{slide.Genre}}</p>
+						</div>
+					</div>
+				</div>
+			</uib-slide>
+		</uib-carousel>
+	</div>
+</div>
+</div>
+<!-- <movie-detail result="result"></movie-result> -->
+</div>

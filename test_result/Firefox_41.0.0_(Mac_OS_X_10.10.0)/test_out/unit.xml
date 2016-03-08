@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<testsuite name="Firefox 41.0.0 (Mac OS X 10.10.0)" package="unit" timestamp="2016-02-21T22:40:47" id="0" hostname="my--Mac.local" tests="2" errors="1" failures="2" time="0.016">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0"/>
+  </properties>
+  <testcase name="should create &quot;phones&quot; model with 2 phones fetched from xhr" time="0.012" classname="Firefox_41_0_0_(Mac_OS_X_10_10_0).unit.michael controllers">
+    <failure type="">TypeError: jasmine.addMatchers is not a function in /Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js (line 5)
+@/Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js:5:1
+
+</failure>
+    <failure type="">minErr/&lt;@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:68:12
+loadModules/&lt;@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4470:15
+forEach@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:341:11
+loadModules@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4431:5
+createInjector@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4356:11
+workFn@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular-mocks/angular-mocks.js:2506:44
+
+</failure>
+    <failure type="">TypeError: scope is undefined in /Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js (line 33)
+@/Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js:33:7
+
+</failure>
+  </testcase>
+  <testcase name="should set the default value of orderProp model" time="0.004" classname="Firefox_41_0_0_(Mac_OS_X_10_10_0).unit.michael controllers">
+    <failure type="">TypeError: jasmine.addMatchers is not a function in /Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js (line 5)
+@/Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js:5:1
+
+</failure>
+    <failure type="">minErr/&lt;@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:68:12
+loadModules/&lt;@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4470:15
+forEach@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:341:11
+loadModules@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4431:5
+createInjector@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular/angular.js:4356:11
+workFn@/Users/mac/Documents/Projects/WebProject/myWeb/app/bower_components/angular-mocks/angular-mocks.js:2506:44
+
+</failure>
+    <failure type="">TypeError: scope is undefined in /Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js (line 42)
+@/Users/mac/Documents/Projects/WebProject/myWeb/test/unit/controllerSpec.js:42:7
+
+</failure>
+  </testcase>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

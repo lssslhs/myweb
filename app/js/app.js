@@ -1,14 +1,17 @@
 +function() {
   "use strict";
 
-  var michaelApp = angular.module("michaelApp", [
+  var myWebApp = angular.module("myWebApp", [
     "ngRoute",
-    "michaelControllers",
-    "michaelConstants",
-    "michaelServices"
+    "myWebControllers",
+    "myWebConstants",
+    "myWebDirectives",
+    "myWebServices",
+    "Movie",
+    "JobApp"
   ]);
 
-  michaelApp.config([
+  myWebApp.config([
     "$routeProvider", "$locationProvider",
     function($routeProvider, $locationProvider){
       //config to use angular route
@@ -16,31 +19,45 @@
         enabled: true,
         requireBase: false
       });
-      $routeProvider.
-      when('/profile',{
-        templateUrl: 'views/partials/profile.html',
+      $routeProvider
+      .when('/profile',{
+        templateUrl: '/views/partials/profile.html',
         controller: 'ProfileCtrl',
         resolve: {
-          authorize: ["$location", "AuthService",
-           function($location, AuthService){
-             if (!AuthService.isAuthenticated()) {
+          authorize: ["$location", "$rootScope",
+           function($location, $rootScope){
+             if (!$rootScope.user.isAuthenticated) {
                $location.path("/");
              }
            }]
         }
-      }).
-      otherwise({
+      })
+      .when('/job', {
+        templateUrl: '/views/partials/job/job.html',
+        controller: 'JobCtrl',
+        resolve: {
+          authorize: ["$location", "$rootScope",
+           function($location, $rootScope){
+             if (!$rootScope.user.isAuthenticated) {
+               $location.path("/");
+             }
+           }]
+        }
+      })
+      .when('/movie', {
+        templateUrl: '/views/partials/movie/movie.html',
+        controller: 'MovieMainCtrl',
+      })
+      .otherwise({
         redirectTo: '/'
       });
     }]);
 
-    michaelApp.run(["$rootScope", "$location", function ($rootScope, $location) {
+    myWebApp.run(["$rootScope", "AuthService", "User", function ($rootScope, AuthService, User) {
 
       console.log("app run");
 
-      $rootScope.user = {
-        isAuthenticated: false
-      };
+      $rootScope.user = User;
 
     }]);
 

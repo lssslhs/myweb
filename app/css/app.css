@@ -1,8 +1,78 @@
+div:focus {outline:0;}
+
 #mainContainer {
   padding: 40px 20px;
+}
+
+.container {
+	max-width: 900px ;
 }
 
 .mode-switch {
   color: #337ab7;
   cursor: pointer;
+}
+
+.panel-title, .panel-heading, .accordion-toggle: focus {
+	background: yellow;
+}
+
+.bread-item-inactivate {
+	color: #337ab7;
+	cursor: pointer;
+}
+
+.bread-item-inactivate:hover {
+	color: #23527c;
+	cursor: pointer;
+}
+
+.active {
+	cursor: pointer;
+}
+
+.carousel-img {
+	width: 250px;
+	height: 300px;
+	float:left;
+}
+
+.carousel-Title {
+	margin: 0 0 20px 0;
+	font-size: 20px
+}
+
+.carousel-text-container {
+	text-align: left;
+	margin-left: 280px;
+	height: 300px;
+}
+
+.carosel-container {
+	margin: 0px auto;
+	width: 80%;
+}
+
+.carousel-control.right, .carousel-control.left {
+	background-image: none ;
+}
+
+.carousel-control {
+	width: 5%;
+	height: 15%;
+	top: 50%;
+}
+
+.carousel-text {
+	margin: 0 0 10px 0;
+}
+
+.text-span {
+	color: #666666;
+	font-weight: 600;
+}
+
+.text-bottom {
+	position: absolute;
+	bottom: 0;
 }

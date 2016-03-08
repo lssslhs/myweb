@@ -1,0 +1,34 @@
+<div>
+	<div class="header">
+		<div class="container">
+			<h1>
+				<a href="#/">Movie App</a>
+			</h1>
+			<div ng-controller="SearchCtrl">
+				<form class="form-inline-lg" ng-submit="search()">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Film title.." ng-model="query" ng-keyup="keyup()" ng-keydown="keydown()">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="search()">GO!</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<br>
+		<ol class="breadcrumb">
+			<li ng-class="{active: selected===0, 'bread-item-inactivate': selected!==0}" ng-click="setSelected(0)">
+				PopularMovies
+			</li>
+			<li ng-show="user.isAuthenticated" ng-class="{active: selected===1, 'bread-item-inactivate': selected!==1}" ng-click="setSelected(1)">
+				Your Movie List
+			</li>
+			<li ng-show="results" ng-class="{active: selected===2, 'bread-item-inactivate': selected!==2}" ng-click="setSelected(2)">
+				Results
+			</li>
+		</ol>
+		<div ng-include="template.url"></div>
+	</div>
+</div>

@@ -3,7 +3,8 @@
 
   var mongoose = require("mongoose")
   ,   jwt = require("jwt-simple")
-  ,   authConfig = require("../../config/auth");
+  ,   authConfig = require("../../config/auth")
+  ,   util = require('../../lib/util.js');
 
   var User     = mongoose.model("User")
   ,   Profile  = mongoose.model("Profile");
@@ -78,7 +79,7 @@
     },
 
     info: function(req, res, next){
-      var token = getToken(req.headers);
+      var token = util.getToken(req.headers);
       if (token) {
         var decoded = jwt.decode(token, authConfig.localAuth.secret);
         User.findOne({
@@ -111,7 +112,7 @@
     },
 
     getProfile: function(req, res, next) {
-      var token = getToken(req.headers);
+      var token = util.getToken(req.headers);
       if (token) {
         var decoded = jwt.decode(token, authConfig.localAuth.secret);
 
@@ -145,7 +146,7 @@
     },
 
     createProfile: function(req, res, next) {
-      var token = getToken(req.headers);
+      var token = util.getToken(req.headers);
       var data = req.body;
       if (token) {
         var decoded = jwt.decode(token, authConfig.localAuth.secret);
@@ -189,12 +190,12 @@
         return res.json({
           success: false,
           msg: "token not provided"
-        })
+        });
       }
     },
 
     updateProfile: function(req, res, next) {
-      var token = getToken(req.headers);
+      var token = util.getToken(req.headers);
       if (token) {
         var decoded = jwt.decode(token, authConfig.localAuth.secret);
         Profile.findOne({
@@ -243,21 +244,6 @@
     }
 
   };
-
-  var getToken = function(headers) {
-    if(headers && headers.authorization) {
-      var parted = headers.authorization.split(' ');
-      if (parted.length === 2) {
-        return parted[1];
-      }
-      else {
-        return null;
-      }
-    }
-    else {
-      return null;
-    }
-  }
 
   module.exports = UserApi;
 
