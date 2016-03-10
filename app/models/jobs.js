@@ -49,10 +49,14 @@
 		}]
 	});
 
+	JobListSchema.add({
+		memo: {
+			type: String,
+			default: ''
+	}});
+
 	JobListSchema.virtual("jobInfo").get(function(){
-		return {
-			joblist: this.joblist
-		}
+		return this.joblist
 	});
 
 	mongoose.model('JobList', JobListSchema);  

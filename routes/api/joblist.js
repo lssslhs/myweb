@@ -38,7 +38,8 @@
 
 							res.json({
 								success: true,
-								msg: "Job created"
+								msg: "Job created",
+								job: data
 							});
 						});
 					}
@@ -55,7 +56,8 @@
 
 							res.json({
 								success: true,
-								msg: "Job created"
+								msg: "Job created",
+								job: data
 							});
 						});
 					}
@@ -73,16 +75,11 @@
 		getJoblist: function(req, res, next) {
 			var token = util.getToken(req.headers);
 
-			console.log(token);
-
 			if (token) {
-				console.log('in token');
 				var decoded = jwt.decode(token, authConfig.localAuth.secret)
-				console.log(decoded);
 				JobList.findOne({
 					username: decoded.local.username
 				},function(err, joblist){
-					console.log('in find');
 					if (err) {
 						throw err;
 					}
@@ -141,12 +138,12 @@
 			var token = util.getToken(req.headers);
 			if (token) {
 				var decoded = jwt.decode(token, authConfig.localAuth.secret);
-				var data = req.body;
+				var jid = req.query.jid;
 				JobList.update({
 					username: decoded.local.username, 
 				},
 				{
-					$pull: {joblist: {id: data.id}}
+					$pull: {joblist: {id: jid}}
 				}, function(err, test){
 					if (err) {
 						throw err;

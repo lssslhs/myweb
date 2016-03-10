@@ -3,6 +3,7 @@
 
   var myWebApp = angular.module("myWebApp", [
     "ngRoute",
+    "ngAnimate",
     "myWebControllers",
     "myWebConstants",
     "myWebDirectives",

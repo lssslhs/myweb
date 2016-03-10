@@ -1,10 +1,124 @@
 <div class="row">
 	<h1>Jobs</h1>
-	<form>
-		<div class="form-group">
-			<label for="companyName">Company Name</label>
-    		<input type="text" class="form-control" ng-model="companyName" id="companyName" placeholder="Company Name...">
-    		<button style="margin-top:10px;" type="submit" class="btn btn-default" ng-click="submit()">submit</button>
+	<div class="col-md-4">
+		<form>
+			<div class="form-group">
+				<label for="companyName">Company Name</label>
+				<input ng-model="jobDetail.companyname" type="text" class="form-control" placeholder="Company Name...">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4">
+		<form>
+			<div class="form-group">
+				<label for="location">Location</label>
+				<input type="text" class="form-control" ng-model="jobDetail.location" placeholder="location...">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4">
+		<form>
+			<div class="form-group">
+				<label for="jobtitle">Job Title</label>
+				<input type="text" class="form-control" ng-model="jobDetail.jobtitle" placeholder="job title...">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-3">
+		<form>
+			<div class="form-group">
+				<label for="status">Status</label>
+				<input type="text" class="form-control" ng-model="jobDetail.status" placeholder="status...">
+			</div>
+		</form>
+	</div>	
+	<div class="col-md-3">
+		<form>
+			<div class="form-group">
+				<label for="applydate">Applied Date</label>
+				<div class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="jobDetail.applydate" is-open="pop.apply" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+					<span class="input-group-btn">
+						<button ng-click="openApply()" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-6">
+		<label for="interviewtime">Interview Time</label>
+		<form class="form-inline">
+			<div class="form-group">
+				<div class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="jobDetail.interviewtime" is-open="pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+					<span class="input-group-btn">
+						<button ng-click="openInterview()" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+					</span>
+				</div>
+				<div class="timepicker-container">
+					<uib-timepicker ng-model="jobDetail.interviewtime" hour-step="1" minute-step="5" show-meridian="true"></uib-timepicker>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<button style="margin-top:-130px;" type="submit" class="btn btn-primary" ng-click="submit()">Add</button>
+<hr>
+<h1>Job List</h1>
+<div class="row">
+	<div class="col-md-8">
+		<uib-accordion>
+		<uib-accordion-group ng-repeat="job in joblist" is-open="job.open" panel-class="panel-info">
+		<uib-accordion-heading>
+		Company: {{job.companyname}}, {{job.jobtitle}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': job.open, 'glyphicon-chevron-right': !job.open}"></i>
+	</uib-accordion-heading>
+	<div>
+		<div class="form-inline job-list-item">
+			<div class="form-group">
+				<label>Location: </label>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.location}}</p>
+				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.location">
+			</div>
 		</div>
-	</form>
+		<div class="form-inline job-list-item">
+			<div class="form-group">
+				<label>Job Title: </label>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.jobtitle}}</p>
+				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.jobtitle">
+			</div>
+		</div>
+		<div class="form-inline job-list-item">
+			<div class="form-group">
+				<label>Apply Date: </label>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.applydate | date : 'dd-MMMM-yyyy'}}</p>
+				<div class="input-group" ng-show="job.isEdit">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="job.applydate" is-open="job.pop.apply" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+					<span class="input-group-btn">
+						<button ng-click="openApply(job)" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-inline job-list-item">
+			<div class="form-group">
+				<label>Interview Date: </label>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}}</p>
+				<div class="input-group" ng-show="job.isEdit">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="job.interviewtime" is-open="job.pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+					<span class="input-group-btn">
+						<button ng-click="openInterview(job)" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+					</span>
+				</div>
+				<div class="detail-timepicker-container" ng-show="job.isEdit">
+					<uib-timepicker ng-model="job.interviewtime" hour-step="1" minute-step="5" show-meridian="true"></uib-timepicker>
+				</div>
+			</div>
+		</div>
+		<button ng-hide="job.isEdit" class="btn btn-primary" ng-click="openEdit(job)">Edit</button>
+		<button ng-show="job.isEdit" class="btn btn-primary" ng-click="saveJob(job)">Save</button>
+		<button style="float:right" class="btn btn-danger" ng-click="deleteJob(job)">Delete</button>
+	</div>
+</uib-accordion-group>
+</uib-accordion>
+</div>
 </div>

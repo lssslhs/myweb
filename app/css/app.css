@@ -76,3 +76,8 @@ div:focus {outline:0;}
 	position: absolute;
 	bottom: 0;
 }
+
+.no-animate {
+   -webkit-transition: none !important;
+   transition: none !important;
+}

@@ -1,0 +1,15 @@
+.timepicker-container {
+	position: relative;
+	top: -68px;
+	left: 220px;
+}
+
+.detail-timepicker-container {
+	position: relative;
+	top: -68px;
+	left: 320px;
+}
+
+.job-list-item {
+	margin: 0 0 10px 0;
+}
