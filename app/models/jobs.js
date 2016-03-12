@@ -14,7 +14,12 @@
 		joblist: [{
 			id: {
 				type: Number,
-				unique: true
+				default: 0
+			},
+
+			jobid: {
+				type: String,
+				default: 'none'
 			},
 
 			companyname: {
@@ -38,8 +43,8 @@
 			},
 
 			status: {
-				type: String,
-				default: 'none'
+				type: Number,
+				default: 0
 			},
 
 			interviewtime: {

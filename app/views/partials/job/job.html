@@ -1,6 +1,6 @@
 <div class="row">
 	<h1>Jobs</h1>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<form>
 			<div class="form-group">
 				<label for="companyName">Company Name</label>
@@ -8,7 +8,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<form>
 			<div class="form-group">
 				<label for="location">Location</label>
@@ -16,7 +16,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<form>
 			<div class="form-group">
 				<label for="jobtitle">Job Title</label>
@@ -27,8 +27,18 @@
 	<div class="col-md-3">
 		<form>
 			<div class="form-group">
+				<label for="jobid">Job ID</label>
+				<input type="text" class="form-control" ng-model="jobDetail.jobid" placeholder="job title...">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-3">
+		<form>
+			<div class="form-group">
 				<label for="status">Status</label>
-				<input type="text" class="form-control" ng-model="jobDetail.status" placeholder="status...">
+				<select class="form-control" ng-model="jobDetail.status">
+					<option ng-repeat="item in statusItems" value="{{item.value}}">{{item.name}}</option>
+				</select>
 			</div>
 		</form>
 	</div>	
@@ -66,7 +76,15 @@
 <hr>
 <h1>Job List</h1>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li><a>Company name</a></li>
+		  <li><a>Title</a></li>
+		  <li><a>Interview date</a></li>
+		  <li><a>Status</a></li>
+		</ol>
+	</div>
+	<div class="col-md-12">
 		<uib-accordion>
 		<uib-accordion-group ng-repeat="job in joblist" is-open="job.open" panel-class="panel-info">
 		<uib-accordion-heading>

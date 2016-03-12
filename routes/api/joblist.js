@@ -28,8 +28,10 @@
 						});
 						data.id = 0;
 						newJobL.joblist.push(data);
+						console.log(newJobL);
 						newJobL.save(function(err){
 							if (err) {
+								console.log(err);
 								return res.json({
 									success: false,
 									msg: err
@@ -44,7 +46,12 @@
 						});
 					}
 					else {
-						data.id = joblist.joblist[joblist.joblist.length-1].id + 1;
+						if (joblist.joblist.length) {
+							data.id = joblist.joblist[joblist.joblist.length-1].id + 1;
+						}
+						else {
+							data.id = 0;
+						}
 						joblist.joblist.push(data);
 						joblist.save(function(err) {
 							if (err) {
@@ -83,6 +90,12 @@
 					if (err) {
 						throw err;
 					}
+					if (!joblist) {
+						return res.json({
+							success: false,
+							msg: 'There is no joblist',
+						});
+					}
 					else {
 						return res.json({
 							success: true,
@@ -115,6 +128,7 @@
 					'joblist.$.jobtitle': data.jobtitle,
 					'joblist.$.status': data.status,
 					'joblist.$.interviewtime': data.interviewtime,
+					'joblist.$.jobid': data.jobid,
 					'joblist.$.applydate': data.applydate
 				}}, function(err, test) {
 					if (err) {

@@ -10,13 +10,22 @@
 				location: '',
 				jobtitle: '',
 				applydate: new Date(),
-				status: '',
+				status: 0,
+				jobid: '',
 				interviewtime: new Date()
 			};
 
-			$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  			$scope.format = $scope.formats[0];
+			$scope.statusItems = [
+				{value: 0, name: 'applied'},
+				{value: 1, name: 'interviewing'},
+				{value: 2, name: 'accept'},
+				{value: 3, name: 'reject'}
+			];
+
+			$scope.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  			$scope.format = $scope.dateFormats[0];
   			$scope.altInputFormats = ['M!/d!/yyyy'];
+
   			$scope.pop = {
   				apply : false,
   				interview: false
@@ -30,6 +39,10 @@
 					$scope.pop.apply = true;
 				}
 			};
+
+			$scope.setStatus = function(index) {
+				$scope.jobDetail.status = index;
+			}
 
 			$scope.openInterview = function (target) {
 				if (target) {
@@ -81,11 +94,10 @@
 				if (data.success) {
 					$scope.joblist = data.joblist;
 				}
+				else {
+					$scope.joblist = [];
+				}
 			});
 		}
 	]);
-
-	jobApp.controller('DatePickCtrl', ['$scope', function($scope){
-
-	}]);
 }();
