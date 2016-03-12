@@ -36,8 +36,7 @@
 		<form>
 			<div class="form-group">
 				<label for="status">Status</label>
-				<select class="form-control" ng-model="jobDetail.status">
-					<option ng-repeat="item in statusItems" value="{{item.value}}">{{item.name}}</option>
+				<select class="form-control" ng-model="statusOptions.selected" ng-options="option.name for option in statusOptions.options track by option.id" ng-change="setStatus(statusOptions.selected)">
 				</select>
 			</div>
 		</form>
@@ -81,14 +80,21 @@
 		  <li><a>Company name</a></li>
 		  <li><a>Title</a></li>
 		  <li><a>Interview date</a></li>
-		  <li><a>Status</a></li>
+		  <li>
+		  	<a>Status</a> : 
+		  	<select ng-model="statusFilterOptions.selected" ng-options="option.name for option in statusFilterOptions.options track by option.id">
+		  	</select>
+		  </li>
 		</ol>
 	</div>
 	<div class="col-md-12">
+
+	</div>
+	<div class="col-md-12">
 		<uib-accordion>
-		<uib-accordion-group ng-repeat="job in joblist" is-open="job.open" panel-class="panel-info">
+		<uib-accordion-group ng-repeat="job in joblist" is-open="job.open" panel-class="{{getPanelInfo(job.status)}}">
 		<uib-accordion-heading>
-		Company: {{job.companyname}}, {{job.jobtitle}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': job.open, 'glyphicon-chevron-right': !job.open}"></i>
+		{{job.companyname}}, {{job.jobtitle}}, {{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}}, {{job.status | jobStatus}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': job.open, 'glyphicon-chevron-right': !job.open}"></i>
 	</uib-accordion-heading>
 	<div>
 		<div class="form-inline job-list-item">

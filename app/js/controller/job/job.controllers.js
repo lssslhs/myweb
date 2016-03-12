@@ -15,12 +15,28 @@
 				interviewtime: new Date()
 			};
 
-			$scope.statusItems = [
-				{value: 0, name: 'applied'},
-				{value: 1, name: 'interviewing'},
-				{value: 2, name: 'accept'},
-				{value: 3, name: 'reject'}
-			];
+			$scope.statusOptions = {
+				options: [
+					{id: 0, name: 'Applied'},
+					{id: 1, name: 'Interviewing'},
+					{id: 2, name: 'Accept'},
+					{id: 3, name: 'Reject'}
+				],
+
+				selected: {id: 0, name: 'applied'}
+			};
+
+			$scope.statusFilterOptions = {
+				options: [
+					{id: 0, name: 'All'},
+					{id: 1, name: 'Applied'},
+					{id: 2, name: 'Interviewing'},
+					{id: 3, name: 'Accept'},
+					{id: 4, name: 'Reject'}
+				],
+
+				selected : {id: 0, name: 'All'}
+			}
 
 			$scope.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   			$scope.format = $scope.dateFormats[0];
@@ -40,9 +56,9 @@
 				}
 			};
 
-			$scope.setStatus = function(index) {
-				$scope.jobDetail.status = index;
-			}
+			$scope.setStatus = function(selected) {
+				$scope.jobDetail.status = selected.id;
+			};
 
 			$scope.openInterview = function (target) {
 				if (target) {
@@ -61,6 +77,17 @@
 					.then(function(data){
 						$scope.joblist.unshift(data.job);
 				});
+			}
+
+			$scope.getPanelInfo = function(status) {
+				var panelClass = {
+					0: 'panel-default',
+					1: 'panel-info',
+					2: 'panel-success',
+					3: 'panel-danger'
+				}
+
+				return panelClass[status];
 			}
 
 			$scope.openEdit = function(job) {

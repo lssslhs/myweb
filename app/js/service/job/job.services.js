@@ -9,4 +9,17 @@
 		});
 	}]);
 
+	jobServices.filter('jobStatus', function(){
+		return function(input) {
+			var status = {
+				0: 'Applied',
+				1: 'Interviewing',
+				2: 'Accept',
+				3: 'Reject'
+			}
+
+			return	status[input];
+		}
+	});
+
 }();
