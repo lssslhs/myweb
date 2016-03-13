@@ -104,6 +104,8 @@
 					return ;
 				}
 
+				$scope.jobIdTable[$scope.jobDetail.jobid] = 1;
+
 				Job.save($scope.jobDetail).$promise
 					.then(function(data){
 						$scope.joblist.unshift(data.job);
