@@ -22,4 +22,17 @@
 		}
 	});
 
+	jobServices.filter('jobStatusFilter', function(){
+		return function(input, option) {
+			if (option.id === 0) {
+				return input;
+			}
+			else {
+				return input.filter(function(job) {
+					return parseInt(job.status) === option.id-1;
+				});
+			}
+		}
+	});
+
 }();
