@@ -36,14 +36,6 @@
       .when('/job', {
         templateUrl: '/views/partials/job/job.html',
         controller: 'JobCtrl',
-        resolve: {
-          authorize: ["$location", "$rootScope",
-           function($location, $rootScope){
-             if (!$rootScope.user.isAuthenticated) {
-               $location.path("/");
-             }
-           }]
-        }
       })
       .when('/movie', {
         templateUrl: '/views/partials/movie/movie.html',

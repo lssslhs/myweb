@@ -3,8 +3,8 @@
 
 	var jobApp = angular.module('JobApp',['JobServices']);
 
-	jobApp.controller('JobCtrl', ['$scope','$uibModal', 'Job',
-		function($scope, $uibModal, Job){
+	jobApp.controller('JobCtrl', ['$rootScope', '$scope','$uibModal', 'Job',
+		function($rootScope, $scope, $uibModal, Job){
 			$scope.jobDetail = {
 				companyname: '',
 				location: '',
@@ -87,6 +87,24 @@
 				//Job submit
 				console.log('submit press');
 				console.log($scope.jobDetail);
+
+				if (!$rootScope.user.isAuthenticated) {
+					var modalInstance = $uibModal.open({
+			          animation: true,
+			          templateUrl: "views/template/alertModal.html",
+			          controller: "AlertCtrl",
+			          resolve : {
+			          	data: function(){
+			          		return {
+			          			title: 'You are not sign in yet',
+			          			body: 'Please sign up as user or sign in'
+			          		}
+			          	}
+			          }
+			        });
+					return ;
+				}
+
 				if ($scope.jobIdTable[$scope.jobDetail.jobid]) {
 					var modalInstance = $uibModal.open({
 			          animation: true,
