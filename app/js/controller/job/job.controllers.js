@@ -49,6 +49,13 @@
 			$scope.joblistOption = joblistOptions[2];
 
 			$scope.setListOrder = function(index) {
+
+				if ($scope.joblistOption === joblistOptions[index]) {
+					//toggle dec or ace
+					$scope.joblistOption = '-' + joblistOptions[index];
+					return ;
+				}
+
 				$scope.joblistOption = joblistOptions[index];
 			}
 
