@@ -104,9 +104,6 @@
     ]);
 
   myWebControllers.controller("AlertCtrl", ["$scope", "$uibModalInstance", "data", function($scope, $uibModalInstance, data){
-
-    console.log(data);
-
     $scope.alert = {
       title: data.title,
       body: data.body

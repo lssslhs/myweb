@@ -22,9 +22,6 @@
 			<li ng-class="{active: selected===0, 'bread-item-inactivate': selected!==0}" ng-click="setSelected(0)">
 				PopularMovies
 			</li>
-			<li ng-show="user.isAuthenticated" ng-class="{active: selected===1, 'bread-item-inactivate': selected!==1}" ng-click="setSelected(1)">
-				Your Movie List
-			</li>
 			<li ng-show="results" ng-class="{active: selected===2, 'bread-item-inactivate': selected!==2}" ng-click="setSelected(2)">
 				Results
 			</li>

@@ -19,7 +19,7 @@
 
 			jobid: {
 				type: String,
-				default: 'none'
+				default: ''
 			},
 
 			companyname: {

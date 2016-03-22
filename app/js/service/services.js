@@ -74,8 +74,6 @@ myWebServices.service("AuthService", [
     ,   isAuthenticated = false
     ,   authToken ;
 
-    console.log("Auth service finished");
-
     function loadUserCredentials() {
       var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
       if (token) {
@@ -171,5 +169,26 @@ myWebServices.factory("Profile",["$resource",
       create: {method: "POST"}
     });
   }]);
+
+myWebServices.factory('ModalService', ['$uibModal', function($uibModal){
+  return {
+    openAlert: function(title, body) {
+      var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "views/template/alertModal.html",
+            controller: "AlertCtrl",
+            resolve : {
+              data: function(){
+                return {
+                  title: title,
+                  body: body
+                }
+              }
+            }
+          });
+    }
+  };
+}]);
+
 
 }()

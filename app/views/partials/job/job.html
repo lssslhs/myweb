@@ -1,6 +1,5 @@
+<h1>Jobs</h1>
 <div class="row">
-	<h1>Jobs</h1>
-	<span class="glyphicon glyphicon-calendar"></span>
 	<div class="col-md-3">
 		<form>
 			<div class="form-group">
@@ -49,7 +48,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="jobDetail.applydate" is-open="pop.apply" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
 					<span class="input-group-btn">
-						<button ng-click="openApply()" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+						<button ng-click="openApply()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
 					</span>
 				</div>
 			</div>
@@ -62,7 +61,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="jobDetail.interviewtime" is-open="pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
 					<span class="input-group-btn">
-						<button ng-click="openInterview()" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+						<button ng-click="openInterview()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
 					</span>
 				</div>
 				<div class="timepicker-container">
@@ -78,20 +77,20 @@
 <div class="row">
 	<div class="col-md-9">
 		<ol class="breadcrumb">
-		  <li>
-		  	<a ng-click="setListOrder(0)">Company name</a>
-		  </li>
-		  <li>
-		  	<a ng-click="setListOrder(1)">Title</a>
-		  </li>
-		  <li>
-		  	<a ng-click="setListOrder(2)">Interview date</a>
-		  </li>
-		  <li>
-		  	<a>Status</a> : 
-		  	<select ng-model="statusFilterOptions.selected" ng-options="option.name for option in statusFilterOptions.options track by option.id">
-		  	</select>
-		  </li>
+			<li>
+				<a ng-click="setListOrder(0)">Company name</a>
+			</li>
+			<li>
+				<a ng-click="setListOrder(1)">Title</a>
+			</li>
+			<li>
+				<a ng-click="setListOrder(2)">Interview date</a>
+				</li>
+			<li>
+				<a>Status</a> : 
+			  	<select ng-model="statusFilterOptions.selected" ng-options="option.name for option in statusFilterOptions.options track by option.id">
+			  	</select>
+			</li>
 		</ol>
 	</div>
 	<div class="col-md-9">
@@ -142,7 +141,7 @@
 				<div class="input-group" ng-show="job.isEdit">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="job.temp.applydate" is-open="job.pop.apply" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
 					<span class="input-group-btn">
-						<button ng-click="openApply(job)" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+						<button ng-click="openApply(job)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
 					</span>
 				</div>
 			</div>
@@ -154,7 +153,7 @@
 				<div class="input-group" ng-show="job.isEdit">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="job.temp.interviewtime" is-open="job.pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
 					<span class="input-group-btn">
-						<button ng-click="openInterview(job)" class="btn btn-default  glyphicon glyphicon-calendar" type="button"></button>
+						<button ng-click="openInterview(job)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
 					</span>
 				</div>
 				<div class="detail-timepicker-container" ng-show="job.isEdit">
