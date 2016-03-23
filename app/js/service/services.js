@@ -54,13 +54,13 @@
     };
 
     if (User.isAuthenticated) {
-        AuthService.getUserInfo()
-        .then(function(data){
-          User.storeUser(data);
-        }, function(err){
-          console.log(err);
-        });
-      }
+      AuthService.getUserInfo()
+      .then(function(data){
+        User.storeUser(data);
+      }, function(err){
+        console.log(err);
+      });
+    }
 
     return User;
   }]);
@@ -174,19 +174,38 @@ myWebServices.factory('ModalService', ['$uibModal', function($uibModal){
   return {
     openAlert: function(title, body) {
       var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: "views/template/alertModal.html",
-            controller: "AlertCtrl",
-            resolve : {
-              data: function(){
-                return {
-                  title: title,
-                  body: body
-                }
-              }
+        animation: true,
+        templateUrl: "views/template/alertModal.html",
+        controller: "AlertCtrl",
+        resolve : {
+          data: function(){
+            return {
+              title: title,
+              body: body
             }
-          });
+          }
+        }
+      });
+    },
+
+    openConfirm: function(title, body) {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: "views/template/confirmModal.html",
+        controller: "ConfirmCtrl",
+        resolve : {
+          data: function(){
+            return {
+              title: title,
+              body: body
+            }
+          }
+        }
+      });
+
+      return modalInstance.result;
     }
+
   };
 }]);
 

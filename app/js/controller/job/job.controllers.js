@@ -15,6 +15,8 @@
 				interviewtime: new Date()
 			};
 
+			$scope.test = {allowInvalid: true};
+
 			$scope.statusOptions = {
 				options: [
 				{id: 0, name: 'Applied'},
@@ -211,13 +213,23 @@
 			};
 
 			$scope.deleteJob = function(job) {
-				Job.delete({jid: job.id}).$promise
-				.then(function(data) {
-					var index = $scope.joblist.indexOf(job);
-					if (index > -1) {
-						$scope.joblist.splice(index, 1);
-					}
-					JobTable.deleteJob(job);
+				var title = 'Delete Job!';
+				var body = 'Are you sure you want to delete the job?';
+				var result = ModalService.openConfirm(title, body);
+
+				//console.log(result.then);
+
+				result.then(function(){
+					Job.delete({jid: job.id}).$promise
+					.then(function(data) {
+						var index = $scope.joblist.indexOf(job);
+						if (index > -1) {
+							$scope.joblist.splice(index, 1);
+						}
+						JobTable.deleteJob(job);
+					});
+				},function(){
+					console.log('job delete cancel');
 				});
 			}
 

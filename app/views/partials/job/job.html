@@ -28,7 +28,7 @@
 		<form>
 			<div class="form-group">
 				<label for="jobid">Job ID</label>
-				<input type="text" class="form-control" ng-model="jobDetail.jobid" placeholder="job title...">
+				<input type="text" class="form-control" ng-model="jobDetail.jobid" placeholder="job id...">
 			</div>
 		</form>
 	</div>
@@ -72,32 +72,45 @@
 	</div>
 </div>
 <button style="margin-top:-130px;" type="submit" class="btn btn-primary" ng-click="submit()">Add</button>
-<hr>
-<h1>Job List</h1>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#">Job List</a></li>
+  <li role="presentation"><a href="#">Calendar</a></li>
+</ul>
+
 <div class="row">
-	<div class="col-md-9">
-		<ol class="breadcrumb">
-			<li>
-				<a ng-click="setListOrder(0)">Company name</a>
-			</li>
-			<li>
-				<a ng-click="setListOrder(1)">Title</a>
-			</li>
-			<li>
-				<a ng-click="setListOrder(2)">Interview date</a>
-				</li>
-			<li>
-				<a>Status</a> : 
-			  	<select ng-model="statusFilterOptions.selected" ng-options="option.name for option in statusFilterOptions.options track by option.id">
-			  	</select>
-			</li>
-		</ol>
+	<div class="col-md-3 job-filter-item">
+		<a ng-click="setListOrder(0)">Company name</a>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-3 job-filter-item">
+		<a ng-click="setListOrder(1)">Title</a>
+	</div>
+	<div class="col-md-3 job-filter-item">
+		<a ng-click="setListOrder(2)">Interview date</a>
+	</div>
+	<div class="col-md-3 job-filter-item">
+		<div class="pull-right">
+			<a>Status</a> : 
+		  	<select ng-model="statusFilterOptions.selected" ng-options="option.name for option in statusFilterOptions.options track by option.id">
+		  	</select>
+		</div>
+	</div>
+	<div class="col-md-12">
 		<uib-accordion>
 		<uib-accordion-group ng-repeat="job in joblist | jobStatusFilter: statusFilterOptions.selected | orderBy: joblistOption" is-open="job.open" panel-class="{{getPanelInfo(job.status)}}">
 		<uib-accordion-heading>
-		{{job.companyname}}, {{job.jobtitle}}, {{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}}, {{job.status | jobStatus}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': job.open, 'glyphicon-chevron-right': !job.open}"></i>
+			<div style="width:150px;" class="panel-heading-item">
+				{{job.companyname}},
+			</div>
+			<div style="width:200px;" class="panel-heading-item">
+				{{job.jobtitle}},
+			</div>
+			<div style="width:240px;" class="panel-heading-item">
+				{{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}},
+			</div>
+			<div style="width:100px;" class="panel-heading-item">
+				{{job.status | jobStatus}} 
+			</div>
+			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': job.open, 'glyphicon-chevron-right': !job.open}"></i>
 	</uib-accordion-heading>
 	<div>
 		<div class="form-inline job-list-item">

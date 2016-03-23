@@ -115,4 +115,21 @@
 
   }]);
 
+  myWebControllers.controller("ConfirmCtrl", ["$scope", "$uibModalInstance", "data", function($scope, $uibModalInstance, data){
+    
+    $scope.data = {
+      title: data.title,
+      body: data.body
+    };
+
+    $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    }
+
+    $scope.confirm = function() {
+       $uibModalInstance.close();
+    }
+
+  }]);
+
 }()

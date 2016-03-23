@@ -13,3 +13,16 @@
 .job-list-item {
 	margin: 0 0 10px 0;
 }
+
+.job-filter-item {
+	margin: 20px 0 20px 0;
+}
+
+.panel-heading-item {
+	display: inline-block;
+	margin-right: 15px;
+	overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.
