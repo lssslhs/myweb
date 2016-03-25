@@ -209,5 +209,79 @@ myWebServices.factory('ModalService', ['$uibModal', function($uibModal){
   };
 }]);
 
+myWebServices.factory('CalendarHelper', function(){
+  var monthNames = [ 
+  "January", 
+  "February", 
+  "March", 
+  "April", 
+  "May", 
+  "June",
+  "July", 
+  "August", 
+  "September", 
+  "October", 
+  "November", 
+  "December" 
+  ];
+
+  return {
+    incrementMonth: function(calendar) {
+      if (calendar.month === 11) {
+        calendar.month = 0;
+        calendar.year++;
+      }
+      else {
+        calendar.month++;
+      }
+    },
+
+    decrementMonth: function(calendar) {
+      if (calendar.month === 0) {
+        calendar.month = 11;
+        calendar.year--;
+      }
+      else {
+        calendar.month--;
+      }
+    },
+
+    getCalendarDays: function(year, month) {
+      var monthStartDate = new Date(year, month, 1);
+      var days = [];
+      var week = [];
+
+      var dayObj = function(date, events) {
+        this.date = date;
+        this.events = events;
+      }
+
+      for (var idx = 0; idx < monthStartDate.getDay(); idx++) {
+        week.push(new dayObj('', []));
+      }
+      for (var idx = 1; idx <= new Date(year, month+1, 0).getDate(); idx++) {
+        if (week.length === 7) {
+          days.push(week);
+          week = [];
+        }
+        week.push(new dayObj(idx, []));
+      }
+
+      if (week.length > 0 ) {
+        var remain = 7 - week.length;
+        for(var i = 0; i < remain; i++) {
+          week.push(new dayObj('', []));
+        }
+        days.push(week);
+      }
+
+      return days;
+    },
+
+    getMonthName: function(month) {
+      return monthNames[month];
+    }
+  }
+});
 
 }()

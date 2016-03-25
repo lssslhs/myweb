@@ -15,7 +15,24 @@
 				interviewtime: new Date()
 			};
 
-			$scope.test = {allowInvalid: true};
+			var templates = [
+				{name: 'joblist', url: 'views/partials/job/joblist.html'},
+				{name: 'calendar', url: 'views/partials/job/jobcalendar.html'}
+			];
+
+
+			$scope.template = {
+				name: '',
+
+				url: '',
+
+				setUrl: function(index) {
+					this.url = templates[index].url;
+					this.name = templates[index].name;
+				}
+			}
+
+			$scope.template.setUrl(0);
 
 			$scope.statusOptions = {
 				options: [
@@ -46,6 +63,7 @@
 				0: 'companyname',
 				1: 'jobtitle',
 				2: 'interviewtime',
+				3: 'status'
 			}
 
 			$scope.joblistOption = joblistOptions[2];
@@ -114,6 +132,7 @@
 				.then(function(data){
 					$scope.joblist.unshift(data.job);
 					JobTable.addJob(data.job);
+					$scope.$broadcast('getJobList', $scope.joblist);
 				});
 			}
 
@@ -237,6 +256,7 @@
 				if (data.success) {
 					$scope.joblist = data.joblist;
 					JobTable.addJobs(data.joblist);
+					$scope.$broadcast('getJobList', data.joblist);
 				}
 				else {
 					$scope.joblist = [];
@@ -244,4 +264,99 @@
 			});
 		}
 		]);
+
+	jobApp.controller('CalendarCtrl',['$scope', '$interval', 'CalendarHelper',function($scope, $interval, CalendarHelper){
+		var d = new Date();
+		$scope.calendar = {
+			year: d.getFullYear(),
+			month: d.getMonth(),
+			monthName: CalendarHelper.getMonthName(d.getMonth())
+		};
+
+		function updateTime () {
+			if ($scope.events.length > 0) {
+				var oneDay = 24*60*60*1000;
+				var oneHour = oneDay/24;
+				var oneMin = oneHour/60;
+				for(var i =0; i<$scope.events.length; i++) {
+					var interviewtime = new Date($scope.events[i].interviewtime);
+					var curDate = new Date();
+					if (interviewtime > curDate) {
+						var daydiff = Math.floor((interviewtime - curDate)/oneDay);
+						var hourdiff = Math.floor((interviewtime - curDate - daydiff*oneDay)/oneHour);
+						var mindiff = Math.round( (interviewtime - curDate - daydiff*oneDay - hourdiff*oneHour)/oneMin);
+						$scope.events[i].timeleft = daydiff + ' days'+' '+hourdiff+' hours'
+														+' '+mindiff +' mins';
+					}
+					else {
+						$scope.events[i].timeleft = 'pass';
+					}
+				}
+			}
+		}
+
+		var timer = $interval(updateTime, 1000);
+
+		$scope.days = CalendarHelper.getCalendarDays(d.getFullYear(), d.getMonth());
+		$scope.events = [];
+
+		$scope.nextMonth = function() {
+			CalendarHelper.incrementMonth($scope.calendar);
+			$scope.calendar.monthName = CalendarHelper.getMonthName($scope.calendar.month);
+			$scope.days = CalendarHelper.getCalendarDays($scope.calendar.year, $scope.calendar.month);
+			$scope.insertEvents();
+		};
+
+		$scope.preMonth = function() {
+			CalendarHelper.decrementMonth($scope.calendar);
+			$scope.calendar.monthName = CalendarHelper.getMonthName($scope.calendar.month);
+			$scope.days = CalendarHelper.getCalendarDays($scope.calendar.year, $scope.calendar.month);
+			$scope.insertEvents();
+		};
+
+		$scope.nextYear = function() {
+			$scope.calendar.year++;
+			$scope.days = CalendarHelper.getCalendarDays($scope.calendar.year, $scope.calendar.month);
+			$scope.insertEvents();
+		};
+
+		$scope.preYear = function() {
+			$scope.calendar.year--;
+			$scope.days = CalendarHelper.getCalendarDays($scope.calendar.year, $scope.calendar.month);
+			$scope.insertEvents();
+		};
+
+		$scope.insertEvents = function(){
+			if (!$scope.joblist) {
+				return ;
+			}
+			var shift = new Date($scope.calendar.year, $scope.calendar.month, 1).getDay();
+			for(var i=0; i<$scope.joblist.length; i++) {
+				var curDate = new Date($scope.joblist[i].interviewtime);
+				if (curDate.getMonth() === $scope.calendar.month && curDate.getFullYear() === $scope.calendar.year) {
+					var week = Math.floor((curDate.getDate() + shift)/7);
+					$scope.days[week][curDate.getDay()].events.push($scope.joblist[i]);
+				}
+			}
+		}
+
+		$scope.insertEvents();
+
+		$scope.showEvents = function(events) {
+			$scope.events = events;
+		}
+
+		$scope.$on('$destroy',function(){
+			$interval.cancel(timer);
+		});
+
+		$scope.$on('getJobList', function(event, joblist){
+			$scope.joblist = joblist;
+			console.log(joblist);
+			$scope.days = CalendarHelper.getCalendarDays($scope.calendar.year, $scope.calendar.month);
+			$scope.insertEvents();
+		});
+
+	}]);
+
 }();

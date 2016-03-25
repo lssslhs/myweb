@@ -1,0 +1,66 @@
+
+<div class="calendar" ng-controller="CalendarCtrl">
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center" colspan="7">
+					<button class="btn btn-default pull-left" ng-click="preYear()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+					<button class="btn btn-default pull-right" ng-click="nextYear()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+					<div class="cheader">
+						<strong>{{calendar.year}}</strong>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th class="text-center" colspan="7">
+					<button class="btn btn-default pull-left" ng-click="preMonth()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+					<button class="btn btn-default pull-right" ng-click="nextMonth()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+					<div class="cheader">
+						<strong>{{calendar.monthName}}</strong>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th style="border:none;" class="text-center">
+					<small>Sun</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Mon</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Tue</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Wed</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Thu</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Fri</small>
+				</th>
+				<th style="border:none;" class="text-center">
+					<small>Sat</small>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="week in days">
+				<td style="border:none; padding: 1px 1px;" class="text-center day" ng-repeat="day in week track by $index" >
+					<div class="date" ng-click=showEvents(day.events)>
+						{{day.date}}
+						<a href="#" class="events-number" ng-show="day.events.length>0"><span style="width:30px" class="badge">{{day.events.length}}</span></a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="row" ng-repeat="event in events">
+		<div class="col-md-12">
+			<h2>{{event.companyname}}</h2>
+			<p><strong>Job Title:</strong> {{event.jobtitle}}</p>
+			<p><strong>Interview time:</strong> {{event.interviewtime | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+			<p><strong>TimeLeft:</strong> {{event.timeleft}}</p>
+		</div>
+	</div>
+</div>

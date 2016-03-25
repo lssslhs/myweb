@@ -25,4 +25,25 @@
     text-overflow: ellipsis; 
 }
 
-.
+.calendar .cheader {
+	width:144px;
+	margin:9px auto;
+}
+
+.date {
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	height: 50px;
+	text-align: justify;
+	position: relative;
+}
+
+.day {
+	width: 14%;
+}
+
+.events-number {
+	position:absolute;
+	top: 25%;
+	left: 36%;
+}
