@@ -120,7 +120,7 @@
 				console.log($scope.jobDetail);
 
 				if (!$rootScope.user.isAuthenticated) {
-					var title = 'You are not sign in yet';
+					var title = 'You have not signed in yet';
 					var body = 'Please sign up as user or sign in';
 					ModalService.openAlert(title, body);
 					return ;
@@ -129,6 +129,13 @@
 				if (JobTable.jobExist($scope.jobDetail)) {
 					var title = 'Job ID already exsit!';
 					var body = 'You already applied this job before!';
+					ModalService.openAlert(title, body);
+					return ;
+				}
+
+				if ($scope.jobDetail.haveinterview && $scope.jobDetail.interviewtime < $scope.jobDetail.applydate) {
+					var title = 'Interview date time is wrong!';
+					var body = 'Interview date before Apply date?';
 					ModalService.openAlert(title, body);
 					return ;
 				}
