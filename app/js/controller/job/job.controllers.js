@@ -12,8 +12,13 @@
 				applydate: new Date(),
 				status: 0,
 				jobid: '',
+				haveinterview: false,
 				interviewtime: new Date()
 			};
+
+			$scope.closeInterview = function(){
+				$scope.jobDetail.haveinterview = false;
+			}
 
 			var templates = [
 				{name: 'joblist', url: 'views/partials/job/joblist.html'},
@@ -256,6 +261,7 @@
 				if (data.success) {
 					$scope.joblist = data.joblist;
 					JobTable.addJobs(data.joblist);
+					console.log(data.joblist);
 					$scope.$broadcast('getJobList', data.joblist);
 				}
 				else {
@@ -332,6 +338,9 @@
 			}
 			var shift = new Date($scope.calendar.year, $scope.calendar.month, 1).getDay();
 			for(var i=0; i<$scope.joblist.length; i++) {
+				if (!$scope.joblist[i].haveinterview) {
+					continue;
+				}
 				var curDate = new Date($scope.joblist[i].interviewtime);
 				if (curDate.getMonth() === $scope.calendar.month && curDate.getFullYear() === $scope.calendar.year) {
 					var week = Math.floor((curDate.getDate() + shift)/7);

@@ -25,7 +25,10 @@
 			<div style="width:200px;" class="panel-heading-item">
 				{{job.jobtitle}},
 			</div>
-			<div style="width:240px;" class="panel-heading-item">
+			<div ng-hide="job.haveinterview" style="width:240px;" class="panel-heading-item">
+				Waiting for interview
+ 			</div>
+			<div ng-show="job.haveinterview" style="width:240px;" class="panel-heading-item">
 				{{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}},
 			</div>
 			<div style="width:100px;" class="panel-heading-item">
@@ -83,7 +86,8 @@
 		<div class="form-inline job-list-item">
 			<div style="max-height:60px" class="form-group">
 				<label>Interview Date: </label>
-				<p ng-hide="job.isEdit" class="form-control-static">{{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}}</p>
+				<p ng-hide="job.isEdit || !job.haveinterview" class="form-control-static">{{job.interviewtime | date : "dd-MMMM-yyyy 'at' h:mma"}}</p>
+				<p ng-hide="job.isEdit || job.haveinterview" class="form-control-static">Waiting for interview</p>
 				<div class="input-group" ng-show="job.isEdit">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="job.temp.interviewtime" is-open="job.pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
 					<span class="input-group-btn">

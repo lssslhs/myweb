@@ -47,8 +47,8 @@
 		<tbody>
 			<tr ng-repeat="week in days">
 				<td style="border:none; padding: 1px 1px;" class="text-center day" ng-repeat="day in week track by $index" >
-					<div class="date" ng-click=showEvents(day.events)>
-						{{day.date}}
+					<div class="date" ng-class="{'clear-border': !day.date}" ng-click=showEvents(day.events)>
+						{{day.date | calDayFormat}}
 						<a href="#" class="events-number" ng-show="day.events.length>0"><span style="width:30px" class="badge">{{day.events.length}}</span></a>
 					</div>
 				</td>

@@ -6,7 +6,7 @@
     </button>
     <ul class="user-dropdown-list" uib-dropdown-menu role="menu" aria-labelledby="userDropdown">
       <li ng-repeat="choice in userDropdown.items">
-        <a href="/{{choice}}">{{choice}}</a>
+        <a href="/{{choice}}">{{choice| navUpperCase}}</a>
       </li>
       <li class="divider"></li>
       <li>

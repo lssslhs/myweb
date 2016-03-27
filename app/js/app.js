@@ -8,6 +8,7 @@
     "myWebConstants",
     "myWebDirectives",
     "myWebServices",
+    "myWebFilters",
     "Movie",
     "JobApp"
   ]);

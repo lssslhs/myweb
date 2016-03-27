@@ -1,7 +1,10 @@
 .timepicker-container {
 	position: relative;
-	top: -80px;
-	left: 250px;
+}
+
+.timepicker-position {
+	position: absolute;
+	top:-14px;
 }
 
 .detail-timepicker-container {
@@ -38,6 +41,10 @@
 	position: relative;
 }
 
+.clear-border {
+	border: none ;
+}
+
 .day {
 	width: 14%;
 }
@@ -46,4 +53,15 @@
 	position:absolute;
 	top: 25%;
 	left: 36%;
+}
+
+.nav-margin {
+	margin: 30px 0 0 0;
+}
+
+.interview-close {
+	position: relative;
+	top: 10px;
+	left: -85px;
+	font-size: 17px;
 }

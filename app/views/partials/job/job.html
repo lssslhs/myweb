@@ -1,47 +1,38 @@
 <h1>Jobs</h1>
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<form>
 			<div class="form-group">
 				<label for="companyName">Company Name</label>
-				<input ng-model="jobDetail.companyname" type="text" class="form-control" placeholder="Company Name...">
+				<input ng-model="jobDetail.companyname" type="text" class="form-control" placeholder="Company name...">
 			</div>
 		</form>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<form>
 			<div class="form-group">
 				<label for="location">Location</label>
-				<input type="text" class="form-control" ng-model="jobDetail.location" placeholder="location...">
+				<input type="text" class="form-control" ng-model="jobDetail.location" placeholder="Location...">
 			</div>
 		</form>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<form>
 			<div class="form-group">
 				<label for="jobtitle">Job Title</label>
-				<input type="text" class="form-control" ng-model="jobDetail.jobtitle" placeholder="job title...">
+				<input type="text" class="form-control" ng-model="jobDetail.jobtitle" placeholder="Job title...">
 			</div>
 		</form>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<form>
 			<div class="form-group">
 				<label for="jobid">Job ID</label>
-				<input type="text" class="form-control" ng-model="jobDetail.jobid" placeholder="job id...">
+				<input type="text" class="form-control" ng-model="jobDetail.jobid" placeholder="Job id...">
 			</div>
 		</form>
 	</div>
-	<div class="col-md-3">
-		<form>
-			<div class="form-group">
-				<label for="status">Status</label>
-				<select class="form-control" ng-model="statusOptions.selected" ng-options="option.name for option in statusOptions.options track by option.id" ng-change="setStatus(statusOptions.selected)">
-				</select>
-			</div>
-		</form>
-	</div>	
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<form>
 			<div class="form-group">
 				<label for="applydate">Applied Date</label>
@@ -54,9 +45,25 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
+		<form>
+			<div class="form-group">
+				<label for="status">Status</label>
+				<select class="form-control" ng-model="statusOptions.selected" ng-options="option.name for option in statusOptions.options track by option.id" ng-change="setStatus(statusOptions.selected)">
+				</select>
+			</div>
+		</form>
+	</div>	
+	<div class="col-md-4" ng-hide="jobDetail.haveinterview">
+		<div class="checkbox">
+		    <label>
+		    	<input type="checkbox" ng-model="jobDetail.haveinterview"> Add Interview Time
+		    </label>
+		</div>
+	</div>
+	<div class="col-md-4" ng-show="jobDetail.haveinterview">
 		<label for="interviewtime">Interview Time</label>
-		<form class="form-inline">
+		<form>
 			<div class="form-group">
 				<div class="input-group">
 					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="jobDetail.interviewtime" is-open="pop.interview" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
@@ -64,15 +71,18 @@
 						<button ng-click="openInterview()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
 					</span>
 				</div>
-				<div class="timepicker-container">
-					<uib-timepicker ng-model="jobDetail.interviewtime" hour-step="1" minute-step="5" show-meridian="true"></uib-timepicker>
-				</div>
 			</div>
 		</form>
 	</div>
+	<div class="col-md-4" ng-show="jobDetail.haveinterview">
+		<a href="#" class="close interview-close" ng-click="closeInterview()">&times;</a>
+		<div class="timepicker-container">
+			<uib-timepicker class="timepicker-position" ng-model="jobDetail.interviewtime" hour-step="1" minute-step="5" show-meridian="true"></uib-timepicker>
+		</div>
+	</div>
 </div>
-<button style="margin-top:-130px;" type="submit" class="btn btn-primary" ng-click="submit()">Add</button>
-<ul class="nav nav-tabs">
+<button style="margin-top:30px;" type="submit" class="btn btn-primary" ng-click="submit()">Add</button>
+<ul class="nav nav-tabs nav-margin">
   <li role="presentation" ng-class="{'active': template.name==='joblist'}" ng-click="template.setUrl(0)"><a href="#">Job List</a></li>
   <li role="presentation" ng-class="{'active': template.name==='calendar'}" ng-click="template.setUrl(1)"><a href="#">Calendar</a></li>
 </ul>

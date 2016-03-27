@@ -52,6 +52,7 @@
 						else {
 							data.id = 0;
 						}
+						console.log(data);
 						joblist.joblist.push(data);
 						joblist.save(function(err) {
 							if (err) {

@@ -47,18 +47,22 @@
 				default: 0
 			},
 
+			haveinterview: {
+				type: Boolean,
+				default: false
+			},
+
 			interviewtime: {
 				type: Date,
 				default: Date.now
+			},
+
+			memo: {
+				type: String,
+				default: ''
 			}
 		}]
 	});
-
-	JobListSchema.add({
-		memo: {
-			type: String,
-			default: ''
-	}});
 
 	JobListSchema.virtual("jobInfo").get(function(){
 		return this.joblist
