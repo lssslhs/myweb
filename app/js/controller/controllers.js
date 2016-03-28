@@ -6,9 +6,8 @@
   myWebControllers.controller("NavUserCtrl",[
     "$rootScope",
     "$scope",
-    "$location",
     "$uibModal",
-    function($rootScope, $scope, $location, $uibModal){
+    function($rootScope, $scope, $uibModal){
       $scope.userDropdown = {
         isopen: false,
         items: [
@@ -18,7 +17,6 @@
 
       $scope.logout = function() {
         $rootScope.user.logout();
-        $location.url("/");
       };
 
       $scope.openModal = function () {

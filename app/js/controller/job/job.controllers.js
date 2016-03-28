@@ -3,8 +3,8 @@
 
 	var jobApp = angular.module('JobApp',['JobServices']);
 
-	jobApp.controller('JobCtrl', ['$rootScope', '$scope','$uibModal', 'Job', 'JobTable', 'ModalService',
-		function($rootScope, $scope, $uibModal, Job, JobTable, ModalService){
+	jobApp.controller('JobCtrl', ['$rootScope', '$scope', 'Job', 'JobTable', 'ModalService',
+		function($rootScope, $scope, Job, JobTable, ModalService){
 			$scope.jobDetail = {
 				companyname: '',
 				location: '',
@@ -211,19 +211,9 @@
 			$scope.saveJob = function(job) {
 				//make sure job id not duplicate
 				if (!JobTable.updateTable(job, job.temp)) {
-					var modalInstance = $uibModal.open({
-						animation: true,
-						templateUrl: "views/template/alertModal.html",
-						controller: "AlertCtrl",
-						resolve : {
-							data: function(){
-								return {
-									title: 'Job ID already exsit!',
-									body: 'No Duplicate Job ID!'
-								}
-							}
-						}
-					});
+					var title = 'Job ID already exsit!';
+					var body = 'You already applied this job before!';
+					ModalService.openAlert(title, body);
 					return ;
 				}
 
@@ -268,7 +258,6 @@
 				if (data.success) {
 					$scope.joblist = data.joblist;
 					JobTable.addJobs(data.joblist);
-					console.log(data.joblist);
 					$scope.$broadcast('getJobList', data.joblist);
 				}
 				else {

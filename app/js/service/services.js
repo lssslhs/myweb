@@ -3,7 +3,7 @@
 
   var myWebServices = angular.module("myWebServices", ["ngResource"]);
 
-  myWebServices.factory("User",["AuthService", "Profile", function(AuthService, Profile){
+  myWebServices.factory("User",["$route", "AuthService", "Profile", function($route, AuthService, Profile){
 
     var User = {
 
@@ -19,6 +19,7 @@
         AuthService.login(user)
         .then(function(data){
           that.storeUser(data);
+          $route.reload();
         }, function(err){
           console.log(err);
         });
@@ -27,6 +28,7 @@
       logout: function() {
         AuthService.logout();
         this.resetUser();
+        $route.reload();
       },
 
       register: function(data) {
@@ -35,6 +37,7 @@
         AuthService.register(data)
         .then(function(data){
           that.storeUser(data);
+          $route.reload();
         }, function(err){
           console.log(err);
         });
