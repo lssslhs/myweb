@@ -116,6 +116,18 @@
 		}
 	});
 
+	jobServices.filter('CompanyNameFilter', function() {
+		return function(input, query) {
+			if (!query) {
+				return input;
+			}
+
+			return input.filter(function(job){
+				return job.companyname.indexOf(query) > -1;
+			});
+		}
+	})
+
 	jobServices.filter('calDayFormat', function() {
 		return function(input) {
 			if(!input) {
