@@ -40,7 +40,7 @@
 		<div class="form-inline job-list-item">
 			<div class="form-group">
 				<label>Job ID: </label>
-				<p ng-hide="job.isEdit" class="form-control-static">{{job.jobid}}</p>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.jobid | limitTo: 20}}{{job.jobid.length>20?'...':''}}</p>
 				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.temp.jobid">
 			</div>
 			<div style="float:right" class="form-group">
@@ -53,21 +53,21 @@
 		<div class="form-inline job-list-item">
 			<div class="form-group">
 				<label>Company Name: </label>
-				<p ng-hide="job.isEdit" class="form-control-static">{{job.companyname}}</p>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.companyname | limitTo: 30}}{{job.companyname.length > 30? '...': ''}}</p>
 				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.temp.companyname">
 			</div>
 		</div>
 		<div class="form-inline job-list-item">
 			<div class="form-group">
 				<label>Job Title: </label>
-				<p ng-hide="job.isEdit" class="form-control-static">{{job.jobtitle}}</p>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.jobtitle | limitTo: 30}}{{job.jobtitle.length>30?'...':''}}</p>
 				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.temp.jobtitle">
 			</div>
 		</div>
 		<div class="form-inline job-list-item">
 			<div class="form-group">
 				<label>Location: </label>
-				<p ng-hide="job.isEdit" class="form-control-static">{{job.location}}</p>
+				<p ng-hide="job.isEdit" class="form-control-static">{{job.location | limitTo: 20}}{{job.location.length>20?'...':''}}</p>
 				<input ng-show="job.isEdit" class="form-control no-animate" type="text" ng-model="job.temp.location">
 			</div>
 		</div>
