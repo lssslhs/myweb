@@ -37,7 +37,6 @@
         AuthService.register(data)
         .then(function(data){
           that.storeUser(data);
-          $route.reload();
         }, function(err){
           console.log(err);
         });
